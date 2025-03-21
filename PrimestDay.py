@@ -196,8 +196,8 @@ class PrimiestDayWindow(Frame):
         selected_idx = self.output_list_date_time.curselection()[0]
         selected_date, selected_time = self.prime_date_times[selected_idx]
         info_text = [
-            f'{label}: {FUNCTION_FORMATTERS[label](*selected_date, *selected_time)}'
-            for label in [l for l, v in self.applied_filters.items() if v and l in FUNCTION_FORMATTERS]
+            f'{label}: {fn(*selected_date, *selected_time)}'
+            for (label, fn) in FUNCTION_FORMATTERS.items() if isprime(fn(*selected_date, *selected_time))
         ]
         self.info_pane.configure(state=NORMAL)
         self.info_pane.delete(1.0, 'end')
